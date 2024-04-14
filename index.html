@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Mask Detection</title>
+</head>
+<body>
+    <h1>Face Mask Detection Through WebCam </h1>
+    <p>click the start detection button</p>
+    <button id="startButton">Start Detection</button>
+    <button id="stopButton" style="display: none;">Stop Detection</button>
+    <div id="videoContainer">
+        <img id="videoFeed" src="" width="400">
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <h1>Face Mask Detection Through Image </h1>
+    <p>upload your desired image,,and click on Detect!!!!</p>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Detect">
+    </form>
+    <script>
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+    
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            stopButton.style.display = 'block';
+            videoFeed.src = "{{ url_for('video_feed') }}";
+        });
+    
+        stopButton.addEventListener('click', () => {
+            fetch('/stop_feed')
+                .then(response => {
+                    if (response.ok) {
+                        startButton.style.display = 'block';
+                        stopButton.style.display = 'none';
+                        videoFeed.src = '';
+                    }
+                })
+                .catch(error => console.error('Error stopping video feed:', error));
+        });
+    </script>
+    
+</body>
+</html>
