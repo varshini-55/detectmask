@@ -1,0 +1,6 @@
+flask==3.0.1
+imutils==0.5.4
+tensorflow==2.15.0
+keras==2.15.0
+numpy==1.24.1
+opencv-python==4.9.0.80
